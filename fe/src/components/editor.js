@@ -31,7 +31,7 @@ const generateToc = (data) => {
     .split("\n")
     .filter(a=>a)
     .filter(s=>/^#/.test(s))
-    .map(s=>[...s.matchAll(/(#{1,2}) (.*)/g)])
+    .map(s=>[...s.matchAll(/(#{1,}) (.*)/g)])
     .map(m=>({title: m[0][2], level: m[0][1].length }));
     
   return toc;
