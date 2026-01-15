@@ -2,11 +2,13 @@ package handlers
 
 import (
 	"fmt"
+	"io/fs"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 
 	"writing/config"
+	"writing/embed"
 )
 
 func ReactHandler(w http.ResponseWriter, r *http.Request) {
@@ -21,5 +23,13 @@ func ReactHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http.Error(w, "Not yet implemented", http.StatusInternalServerError)
+	// in production, serve the embedded React files
+	rootFs, err := fs.Sub(embed.FeFS, "fe_build")
+	if err != nil {
+		http.Error(w, "Failed to access embedded files", http.StatusInternalServerError)
+		return
+	}
+	fs := http.FS(rootFs)
+	fileServer := http.FileServer(fs)
+	fileServer.ServeHTTP(w, r)
 }
