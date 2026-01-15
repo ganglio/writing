@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+  <style>
+    .title { font-family: Arial, sans-serif; font-size: 22px; fill: #111; }
+    .label { font-family: Arial, sans-serif; font-size: 13px; fill: #111; }
+    .label-muted { font-family: Arial, sans-serif; font-size: 12px; fill: #555; }
+    .tab-label { font-family: Arial, sans-serif; font-size: 12px; fill: #111; }
+    .box { fill: #f9f9f9; stroke: #999; stroke-width: 1; }
+    .box-alt { fill: #ffffff; stroke: #bbb; stroke-width: 1; }
+    .sidebar { fill: #f3f3f3; stroke: #999; stroke-width: 1; }
+    .divider { stroke: #ccc; stroke-width: 1; }
+    .tab-active { fill: #ffffff; stroke: #333; stroke-width: 1.5; }
+    .tab-inactive { fill: #eaeaea; stroke: #aaa; stroke-width: 1; }
+    .cell-border { stroke: #ddd; stroke-width: 1; fill: none; }
+  </style>
+
+  <!-- App title -->
+  <text x="20" y="30" class="title">Writing – AI Creative Writing App (Wireframe)</text>
+
+  <!-- Outer frame -->
+  <rect x="10" y="50" width="1180" height="640" class="box-alt" />
+
+  <!-- Sidebar -->
+  <rect x="20" y="60" width="260" height="620" class="sidebar" />
+  <text x="30" y="80" class="label">Sidebar</text>
+
+  <!-- Sidebar: Files (top) -->
+  <rect x="25" y="95" width="250" height="230" class="box" />
+  <text x="35" y="115" class="label">Files</text>
+  <!-- Example file rows -->
+  <rect x="35" y="130" width="230" height="24" class="box-alt" />
+  <text x="40" y="146" class="label-muted">novel_v3.md</text>
+  <rect x="35" y="160" width="230" height="24" class="box-alt" />
+  <text x="40" y="176" class="label-muted">short_story_idea.txt</text>
+  <rect x="35" y="190" width="230" height="24" class="box-alt" />
+  <text x="40" y="206" class="label-muted">outline.act1.md</text>
+
+  <!-- Sidebar: Section tree (bottom) -->
+  <rect x="25" y="335" width="250" height="340" class="box" />
+  <text x="35" y="355" class="label">Current file sections</text>
+  <!-- Example tree -->
+  <text x="45" y="380" class="label-muted">&#9656; Act I</text>
+  <text x="60" y="402" class="label-muted">&#9679; Chapter 1 – Morning commute</text>
+  <text x="60" y="422" class="label-muted">&#9679; Chapter 2 – The office</text>
+  <text x="45" y="452" class="label-muted">&#9656; Act II</text>
+
+  <!-- Main area: editor (top) -->
+  <rect x="290" y="60" width="900" height="420" class="box" />
+  <text x="300" y="80" class="label">Editor – current file</text>
+
+  <!-- Editor toolbar -->
+  <rect x="300" y="90" width="880" height="32" class="box-alt" />
+  <text x="310" y="110" class="label-muted">Toolbar: [Bold] [Italic] [H1] [AI Rewrite] [Summarise] [...]</text>
+
+  <!-- Editor text lines (wireframe) -->
+  <line x1="310" y1="135" x2="1160" y2="135" class="divider" />
+  <line x1="310" y1="155" x2="1140" y2="155" class="divider" />
+  <line x1="310" y1="175" x2="1120" y2="175" class="divider" />
+  <line x1="310" y1="195" x2="1150" y2="195" class="divider" />
+  <line x1="310" y1="215" x2="1130" y2="215" class="divider" />
+  <line x1="310" y1="235" x2="1140" y2="235" class="divider" />
+  <line x1="310" y1="255" x2="1110" y2="255" class="divider" />
+  <line x1="310" y1="275" x2="1140" y2="275" class="divider" />
+  <line x1="310" y1="295" x2="1120" y2="295" class="divider" />
+  <line x1="310" y1="315" x2="1150" y2="315" class="divider" />
+  <line x1="310" y1="335" x2="1130" y2="335" class="divider" />
+  <line x1="310" y1="355" x2="1140" y2="355" class="divider" />
+  <line x1="310" y1="375" x2="1110" y2="375" class="divider" />
+  <line x1="310" y1="395" x2="1130" y2="395" class="divider" />
+  <line x1="310" y1="415" x2="1140" y2="415" class="divider" />
+
+  <!-- Main area: bottom tabbed section -->
+  <rect x="290" y="490" width="900" height="200" class="box" />
+  
+  <!-- Tabs -->
+  <g>
+    <!-- Active tab: Character index -->
+    <rect x="300" y="482" width="150" height="40" rx="4" ry="4" class="tab-active" />
+    <text x="320" y="506" class="tab-label">Character index</text>
+
+    <!-- Inactive tab: AI chat -->
+    <rect x="460" y="484" width="120" height="36" rx="4" ry="4" class="tab-inactive" />
+    <text x="480" y="506" class="tab-label">AI chat</text>
+
+    <!-- Inactive tab: Statistics -->
+    <rect x="590" y="484" width="120" height="36" rx="4" ry="4" class="tab-inactive" />
+    <text x="610" y="506" class="tab-label">Statistics</text>
+  </g>
+
+  <!-- Character index content area -->
+  <rect x="300" y="530" width="880" height="130" class="box-alt" />
+  <text x="310" y="550" class="label">Character index</text>
+
+  <!-- Table headers -->
+  <line x1="310" y1="560" x2="1150" y2="560" class="cell-border" />
+  <text x="320" y="555" class="label-muted">Character name</text>
+  <text x="500" y="555" class="label-muted">Latest location</text>
+  <text x="680" y="555" class="label-muted">Latest activity (short)</text>
+
+  <!-- Table rows -->
+  <line x1="310" y1="580" x2="1150" y2="580" class="cell-border" />
+  <text x="320" y="575" class="label-muted">Leo</text>
+  <text x="500" y="575" class="label-muted">Office</text>
+  <text x="680" y="575" class="label-muted">Answering yet another status email.</text>
+
+  <line x1="310" y1="600" x2="1150" y2="600" class="cell-border" />
+  <text x="320" y="595" class="label-muted">Mara</text>
+  <text x="500" y="595" class="label-muted">Tram stop</text>
+  <text x="680" y="595" class="label-muted">Waiting for the evening tram.</text>
+
+  <line x1="310" y1="620" x2="1150" y2="620" class="cell-border" />
+  <text x="320" y="615" class="label-muted">The Ghost</text>
+  <text x="500" y="615" class="label-muted">Network feed</text>
+  <text x="680" y="615" class="label-muted">Glitching in the margins of the text.</text>
+
+  <!-- Notes on right side of bottom pane -->
+  <text x="880" y="550" class="label-muted">Bottom area switches between:</text>
+  <text x="880" y="568" class="label-muted">• Character index (table)</text>
+  <text x="880" y="584" class="label-muted">• AI chat (chat bubbles)</text>
+  <text x="880" y="600" class="label-muted">• Statistics (counts and charts)</text>
+</svg>
