@@ -34,7 +34,7 @@ const actions = {
 
 const Toolbar = ({ selection, content, setContent, isDirty = false }) => {
     return (
-        <div className="d-inline-flex justify-content-between w-100">
+        <div className="d-inline-flex justify-content-between w-100 px-0">
             <div className="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                 {
                     toolbarButtons.map((group, index) => (

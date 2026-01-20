@@ -29,28 +29,32 @@ const Editor = ({ currentFile, setToc }) => {
 
 
   return (
-    <div className="container-fluid w-100 mh-100">
-      <h2>{currentFile.filename}</h2>
-      <Toolbar
-        selection={selection}
-        content={content}
-        setContent={setContent}
-        isDirty={isDirty}
-        setIsDirty={setIsDirty}
-      />
-      <div
-        className="editor border rounded p-3 h-100"
-        style={{ overflowY: 'scroll', whiteSpace: 'pre-wrap' }}
-        contentEditable={true}
-        onSelect={(e) => {
-          const selection = document.getSelection()
-          setSelection(selection);
-        }}
-        onInput={(e) => {
-          setIsDirty(true);
-        }}
-      >
-        {content}
+    <div className="container-fluid w-100 h-100 d-flex flex-column">
+      <div className="row">
+        <h2>{currentFile.filename}</h2>
+      </div>
+      <div className="row">
+        <Toolbar
+          selection={selection}
+          content={content}
+          setContent={setContent}
+          isDirty={isDirty}
+          setIsDirty={setIsDirty}
+        />
+      </div>
+      <div className="row flex-grow-1">
+        <textarea
+          className="editor border rounded p-2 w-100 h-100"
+          // style={{ overflowY: 'scroll', whiteSpace: 'pre-wrap' }}
+          onSelect={(e) => {
+            const selection = document.getSelection()
+            setSelection(selection);
+          }}
+          onInput={(e) => {
+            setIsDirty(true);
+          }}
+          value={content}
+        />
       </div>
     </div>
   );
