@@ -5,12 +5,16 @@ import './App.css';
 
 function App() {
   return (
-    <div className="app">
-      <HeaderBar />
-      <div className="container-fluid">
+    <div className="app d-flex flex-column min-vh-100">
+      <div className="row">
+        <HeaderBar />
+      </div>
+      <div className="row flex-grow-1">
         <MainContent />
       </div>
-      <Footer />
+      <div className="row">
+        <Footer />
+      </div>
     </div>
   );
 }

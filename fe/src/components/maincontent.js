@@ -8,19 +8,17 @@ const MainContent = () => {
   const [toc, setToc] = React.useState([]);
 
   return (
-    <main className="container-fluid">
-      <div className="row">
-        <div className="col-2">
-            <Sidebar
-              currentFile={currentFile}
-              setCurrentFile={setCurrentFile}
-              toc={toc}
-            />
-        </div>
-        { currentFile && <div className="col-10">
-            <Editor currentFile={currentFile} setCurrentFile={setCurrentFile} setToc={setToc} />
-        </div>}
+    <main className="container-fluid d-flex">
+      <div className="col-2">
+          <Sidebar
+            currentFile={currentFile}
+            setCurrentFile={setCurrentFile}
+            toc={toc}
+          />
       </div>
+      { currentFile && <div className="col flex-grow-1">
+          <Editor currentFile={currentFile} setCurrentFile={setCurrentFile} setToc={setToc} />
+      </div>}
     </main>
   );
 };

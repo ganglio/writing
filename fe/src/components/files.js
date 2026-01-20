@@ -11,7 +11,7 @@ const Files = ({ currentFile, setCurrentFile }) => {
   }, []);
 
   return (
-    <aside>
+    <section className="overflow-scroll">
       <span className="fw-bold">File Explorer</span>
       <ul className="list-group list-group-flush">
         {files.map((file, index) => (
@@ -20,7 +20,7 @@ const Files = ({ currentFile, setCurrentFile }) => {
           </li>
         ))}
       </ul>
-    </aside>
+    </section>
   );
 };
 

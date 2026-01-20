@@ -37,10 +37,10 @@ const ToC = ({ toc }) => {
   const tree = buildTree(toc);
 
   return (
-    <aside className="fs-6">
+    <section className="fs-6 overflow-scroll">
       <span className="fw-bold">Table of Contents</span>
       {renderTree(tree)}
-    </aside>
+    </section>
   );
 };
 
