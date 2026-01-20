@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Sidebar from './sidebar';
-import Editor from './editor';
+import Editor from './editor/editor';
 
 const MainContent = () => {
   const [currentFile, setCurrentFile] = React.useState(null);

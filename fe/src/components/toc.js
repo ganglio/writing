@@ -34,7 +34,6 @@ const renderTree = (nodes) => {
 }
 
 const ToC = ({ toc }) => {
-  console.log(toc);
   const tree = buildTree(toc);
 
   return (

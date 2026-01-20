@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import Toolbar from "./toolbar";
 
 const Editor = ({ currentFile, setToc }) => {
 
   const [content, setContent] = useState('');
+  const [selection, setSelection] = useState(null);
+  const [isDirty, setIsDirty] = useState(false);
+
   useEffect(() => {
     if (currentFile) {
-      fetch(`http://localhost:3000/api/files/${currentFile.filename}`)
+      fetch(`/api/files/${currentFile.filename}`)
         .then((res) => res.text())
         .then((data) => {
           const toc = generateToc(data);
@@ -16,10 +20,36 @@ const Editor = ({ currentFile, setToc }) => {
     }
   }, [currentFile]);
 
+  useEffect(() => {
+    if (currentFile) {
+      const toc = generateToc(content);
+      setToc(toc);
+    }
+  }, [content]);
+
+
   return (
     <div className="container-fluid w-100 mh-100">
       <h2>{currentFile.filename}</h2>
-      <div className="editor border rounded p-3 h-100" style={{ overflowY: 'scroll', whiteSpace: 'pre-wrap' }}>
+      <Toolbar
+        selection={selection}
+        content={content}
+        setContent={setContent}
+        isDirty={isDirty}
+        setIsDirty={setIsDirty}
+      />
+      <div
+        className="editor border rounded p-3 h-100"
+        style={{ overflowY: 'scroll', whiteSpace: 'pre-wrap' }}
+        contentEditable={true}
+        onSelect={(e) => {
+          const selection = document.getSelection()
+          setSelection(selection);
+        }}
+        onInput={(e) => {
+          setIsDirty(true);
+        }}
+      >
         {content}
       </div>
     </div>
