@@ -10,6 +10,7 @@ func Setup() *mux.Router {
 	r.HandleFunc("/api/health", HealthCheckHandler).Methods("GET")
 	r.HandleFunc("/api/files", GetFilesHandler).Methods("GET")
 	r.HandleFunc("/api/files/{filename}", GetFileHandler).Methods("GET")
+	r.HandleFunc("/api/ai/characterdetails", CharacterDetailsHandler).Methods("GET")
 
 	r.PathPrefix("/").Methods("GET").HandlerFunc(ReactHandler)
 
