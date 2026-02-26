@@ -76,7 +76,7 @@ func set_file_content(file string, content string) error {
 	log.WithFields(map[string]any{
 		"file":    file,
 		"content": content,
-	}).Info("set_file_content")
+	}).Debug("set_file_content")
 
 	err := os.WriteFile(env.WorkFolder+"/"+file, []byte(content), 0644)
 	if err != nil {
@@ -93,7 +93,7 @@ func set_file_content(file string, content string) error {
 func get_file_content(file string) (string, error) {
 	log.WithFields(map[string]any{
 		"file": file,
-	}).Info("get_file_content")
+	}).Debug("get_file_content")
 
 	content, err := os.ReadFile(env.WorkFolder + "/" + file)
 	if err != nil {
@@ -110,7 +110,7 @@ func get_file_content(file string) (string, error) {
 func delete_file(file string) error {
 	log.WithFields(map[string]any{
 		"file": file,
-	}).Info("delete_file")
+	}).Debug("delete_file")
 
 	err := os.Remove(env.WorkFolder + "/" + file)
 	if err != nil {
@@ -136,7 +136,9 @@ func ls(recursive bool) ([]string, error) {
 	})
 	if err != nil {
 		log.WithFields(map[string]any{
-			"error": err,
+			"error":     err,
+			"recursive": recursive,
+			"folder":    env.WorkFolder,
 		}).Error("failed to list files")
 		return nil, err
 	}
@@ -144,7 +146,7 @@ func ls(recursive bool) ([]string, error) {
 	log.WithFields(map[string]any{
 		"recursive": recursive,
 		"files":     files,
-	}).Info("ls")
+	}).Debug("ls")
 
 	return files, nil
 }

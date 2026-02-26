@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"time"
 
 	"writing/config"
 	"writing/handlers"
@@ -14,13 +13,18 @@ import (
 func main() {
 	env := config.GetEnv()
 
+	if env.IsDev() {
+		log.Info("Running in development mode")
+		log.SetLevel(log.DebugLevel)
+	} else {
+		log.Info("Running in production mode")
+	}
+
+	log.WithField("env", env).Info("Environment configuration loaded")
 	log.WithField("port", env.Port).Info("Server starting")
 	srv := &http.Server{
 		Handler: handlers.Setup(),
 		Addr:    fmt.Sprintf(":%d", env.Port),
-		// Good practice: enforce timeouts for servers you create!
-		WriteTimeout: 15 * time.Second,
-		ReadTimeout:  15 * time.Second,
 	}
 	if err := srv.ListenAndServe(); err != nil {
 		log.WithError(err).Fatal("Server failed to start")

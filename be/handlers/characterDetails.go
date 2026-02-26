@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"net/http"
-
 	"writing/ai"
 
 	log "github.com/sirupsen/logrus"
@@ -25,6 +24,7 @@ func CharacterDetailsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "text/plain")
 	w.Write([]byte(response))
 }

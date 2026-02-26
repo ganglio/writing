@@ -1,3 +1,5 @@
 writing
-^embed/fe_build/.gitkeep
-embed/fe_build
+embed/fe_build/*
+embed/fe_build/**
+!embed/fe_build/ignoreme
+__debug*

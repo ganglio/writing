@@ -38,7 +38,7 @@ func Chat(systemPrompt string, userPrompt string, schemaParam ...any) (string, e
 		stepFinishReason := completion.Choices[0].FinishReason
 
 		log.WithField("choice", stepFinishReason).
-			Info("chat step finish reason")
+			Debug("chat step finish reason")
 
 		if stepFinishReason == "stop" {
 			return response, nil
@@ -54,15 +54,4 @@ func Chat(systemPrompt string, userPrompt string, schemaParam ...any) (string, e
 
 		processToolCalls(toolCalls, &params)
 	}
-	// // Make a second chat completion request with the tool call results
-	// completion, err = client.Chat.Completions.New(ctx, params)
-	// if err != nil {
-	// 	log.WithError(err).
-	// 		WithFields(map[string]any{
-	// 			"params": params,
-	// 		}).Error("failed to get chat completion after tool calls")
-	// 	return "", err
-	// }
-
-	// return completion.Choices[0].Message.Content, nil
 }
