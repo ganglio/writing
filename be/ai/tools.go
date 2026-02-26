@@ -1,16 +1,19 @@
 package ai
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
+	"io/fs"
 	"os"
-	"path/filepath"
 	"strings"
+
+	"writing/config"
 
 	"github.com/openai/openai-go/v3"
 	log "github.com/sirupsen/logrus"
 )
+
+var env = config.GetEnv()
 
 var tools = []openai.ChatCompletionToolUnionParam{
 	openai.ChatCompletionFunctionTool(openai.FunctionDefinitionParam{
@@ -75,7 +78,7 @@ func set_file_content(file string, content string) error {
 		"content": content,
 	}).Info("set_file_content")
 
-	err := os.WriteFile(file, []byte(content), 0644)
+	err := os.WriteFile(env.WorkFolder+"/"+file, []byte(content), 0644)
 	if err != nil {
 		log.WithFields(map[string]any{
 			"file":    file,
@@ -92,7 +95,7 @@ func get_file_content(file string) (string, error) {
 		"file": file,
 	}).Info("get_file_content")
 
-	content, err := os.ReadFile(file)
+	content, err := os.ReadFile(env.WorkFolder + "/" + file)
 	if err != nil {
 		log.WithFields(map[string]any{
 			"file":  file,
@@ -109,7 +112,7 @@ func delete_file(file string) error {
 		"file": file,
 	}).Info("delete_file")
 
-	err := os.Remove(file)
+	err := os.Remove(env.WorkFolder + "/" + file)
 	if err != nil {
 		log.WithFields(map[string]any{
 			"file":  file,
@@ -121,20 +124,13 @@ func delete_file(file string) error {
 }
 
 func ls(recursive bool) ([]string, error) {
-	log.WithFields(map[string]any{
-		"recursive": recursive,
-	}).Info("ls")
-
 	var files []string
-	err := filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
+	err := fs.WalkDir(os.DirFS(env.WorkFolder), ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
-		if !info.IsDir() {
+		if !d.IsDir() && !strings.HasPrefix(path, ".") {
 			files = append(files, path)
-		}
-		if info.IsDir() && !recursive && path != "." {
-			return filepath.SkipDir
 		}
 		return nil
 	})
@@ -145,10 +141,15 @@ func ls(recursive bool) ([]string, error) {
 		return nil, err
 	}
 
+	log.WithFields(map[string]any{
+		"recursive": recursive,
+		"files":     files,
+	}).Info("ls")
+
 	return files, nil
 }
 
-func processToolCalls(ctx context.Context, toolCalls []openai.ChatCompletionMessageToolCallUnion, params *openai.ChatCompletionNewParams) {
+func processToolCalls(toolCalls []openai.ChatCompletionMessageToolCallUnion, params *openai.ChatCompletionNewParams) {
 	for _, toolCall := range toolCalls {
 		switch toolCall.Function.Name {
 		case "ls":

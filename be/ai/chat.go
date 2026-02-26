@@ -24,36 +24,45 @@ func Chat(systemPrompt string, userPrompt string, schemaParam ...any) (string, e
 		}
 	}
 
-	completion, err := client.Chat.Completions.New(ctx, params)
-	if err != nil {
-		log.WithError(err).
-			WithFields(map[string]any{
-				"params": params,
-			}).Error("failed to get chat completion")
-		return "", err
+	for {
+		completion, err := client.Chat.Completions.New(ctx, params)
+		if err != nil {
+			log.WithError(err).
+				WithFields(map[string]any{
+					"params": params,
+				}).Error("failed to get chat completion")
+			return "", err
+		}
+
+		response := completion.Choices[0].Message.Content
+		stepFinishReason := completion.Choices[0].FinishReason
+
+		log.WithField("choice", stepFinishReason).
+			Info("chat step finish reason")
+
+		if stepFinishReason == "stop" {
+			return response, nil
+		}
+
+		toolCalls := completion.Choices[0].Message.ToolCalls
+
+		if len(toolCalls) == 0 {
+			return response, nil
+		}
+
+		params.Messages = append(params.Messages, completion.Choices[0].Message.ToParam())
+
+		processToolCalls(toolCalls, &params)
 	}
+	// // Make a second chat completion request with the tool call results
+	// completion, err = client.Chat.Completions.New(ctx, params)
+	// if err != nil {
+	// 	log.WithError(err).
+	// 		WithFields(map[string]any{
+	// 			"params": params,
+	// 		}).Error("failed to get chat completion after tool calls")
+	// 	return "", err
+	// }
 
-	response := completion.Choices[0].Message.Content
-
-	toolCalls := completion.Choices[0].Message.ToolCalls
-
-	if len(toolCalls) == 0 {
-		return response, nil
-	}
-
-	params.Messages = append(params.Messages, completion.Choices[0].Message.ToParam())
-
-	processToolCalls(ctx, toolCalls, &params)
-
-	// Make a second chat completion request with the tool call results
-	completion, err = client.Chat.Completions.New(ctx, params)
-	if err != nil {
-		log.WithError(err).
-			WithFields(map[string]any{
-				"params": params,
-			}).Error("failed to get chat completion after tool calls")
-		return "", err
-	}
-
-	return completion.Choices[0].Message.Content, nil
+	// return completion.Choices[0].Message.Content, nil
 }
