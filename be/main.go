@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"writing/ai"
 	"writing/config"
 	"writing/handlers"
 
@@ -15,10 +16,13 @@ func main() {
 
 	if env.IsDev() {
 		log.Info("Running in development mode")
+		log.SetFormatter(&log.JSONFormatter{})
 		log.SetLevel(log.DebugLevel)
 	} else {
 		log.Info("Running in production mode")
 	}
+
+	log.WithField("schema", ai.CharacterDetailsSchema).Debug("AI character details schema loaded")
 
 	log.WithField("env", env).Info("Environment configuration loaded")
 	log.WithField("port", env.Port).Info("Server starting")

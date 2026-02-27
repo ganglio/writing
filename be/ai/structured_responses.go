@@ -33,7 +33,16 @@ type storyTimeline struct {
 	} `json:"timeline" jsonschema_description:"An array of events, where each object represents an event with a description and the characters involved"`
 }
 
+type conversationAmount struct {
+	Amounts []struct {
+		Character    string `json:"character" jsonschema_description:"The name of the character"`
+		Chapter      string `json:"chapter" jsonschema_description:"The chapter in which the conversation occurs"`
+		Conversation int    `json:"conversation" jsonschema_description:"The ratio of conversations the character has in the chapter compared to the non conversational text in the chapter, expressed as a percentage"`
+	} `json:"amounts" jsonschema_description:"An array of conversation amounts, where each object represents a character with the ratio of conversations they have in the chapter compared to the non conversational text in the chapter, expressed as a percentage"`
+}
+
 var (
-	CharacterDetailsSchema = generateSchema[characterDetails]()
-	StoryTimelineSchema    = generateSchema[storyTimeline]()
+	CharacterDetailsSchema   = generateSchema[characterDetails]()
+	StoryTimelineSchema      = generateSchema[storyTimeline]()
+	ConversationAmountSchema = generateSchema[conversationAmount]()
 )

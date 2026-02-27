@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"writing/handlers/ai"
+
 	"github.com/gorilla/mux"
 )
 
@@ -14,11 +16,14 @@ func Setup() *mux.Router {
 	r.HandleFunc("/api/ui/files/{filename}", GetFileHandler).Methods("GET")
 
 	// AI endpoints
-	r.HandleFunc("/api/ai/charactersdetails", CharacterDetailsHandler).Methods("GET")
-	r.HandleFunc("/api/ai/charactersdetails/{filename}", CharacterDetailsHandler).Methods("GET")
-	r.HandleFunc("/api/ai/timeline", TimelineHandler).Methods("GET")
-	r.HandleFunc("/api/ai/timeline/{filename}", TimelineHandler).Methods("GET")
+	r.HandleFunc("/api/ai/charactersdetails", ai.CharacterDetailsHandler).Methods("GET")
+	r.HandleFunc("/api/ai/charactersdetails/{filename}", ai.CharacterDetailsHandler).Methods("GET")
+	r.HandleFunc("/api/ai/timeline", ai.TimelineHandler).Methods("GET")
+	r.HandleFunc("/api/ai/timeline/{filename}", ai.TimelineHandler).Methods("GET")
+	r.HandleFunc("/api/ai/conversations", ai.ConversationAmountHandler).Methods("GET")
+	r.HandleFunc("/api/ai/conversations/{filename}", ai.ConversationAmountHandler).Methods("GET")
 
+	// React app endpoint
 	r.PathPrefix("/").Methods("GET").HandlerFunc(ReactHandler)
 
 	return r

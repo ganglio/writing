@@ -34,5 +34,25 @@ Make sure to include all characters mentioned in the story, and provide as much 
   "description": "Brief description of the event. Keep it concise, ideally less than 20 words.",
   "Chapter": "Chapter in which the event occurs",
   "characters": ["Character Name 1", "Character Name 2", ...]
-}`
+}
+  
+Make sure to include all events mentioned in the story, and provide as much detail as possible based on the information available in the story.`
+
+	ConversationAmountPrompt = `Fetch the story and analyze the amount of conversations each character has in each chapter. For each character, provide their name, the chapter in which the conversation occurs, and the ratio of conversations they have in the chapter compared to the non conversational text in the chapter, expressed as a percentage. The response should be a JSON array of objects, where each object represents a character with the following structure:
+{
+  "character": "Character Name",
+  "chapter": "Chapter in which the conversation occurs",
+  "conversation": 25
+}
+  
+Make sure to include all characters mentioned in the story, and provide as much detail as possible based on the information available in the story.`
+
+	ConversationAmountPromptWithFile = `Fetch the file "%s" and analyze the amount of conversations each character has in each chapter. For each character, provide their name, the chapter in which the conversation occurs, and the ratio of conversations they have in the chapter compared to the non conversational text in the chapter, expressed as a percentage. The response should be a JSON array of objects, where each object represents a character with the following structure:
+{
+  "character": "Character Name",
+  "chapter": "Chapter in which the conversation occurs",
+  "conversation": 25
+}
+  
+Make sure to include all characters mentioned in the story, and provide as much detail as possible based on the information available in the story.`
 )
