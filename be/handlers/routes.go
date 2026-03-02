@@ -3,6 +3,7 @@ package handlers
 import (
 	"writing/config"
 	"writing/handlers/ai"
+	"writing/handlers/ui"
 
 	"github.com/gorilla/mux"
 )
@@ -15,14 +16,13 @@ func Setup() *mux.Router {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/api/health", HealthCheckHandler).Methods("GET")
+	if env.IsDev() {
+		r.HandleFunc("/api/random", RandomHandler).Methods("POST")
+	}
 
 	// UI endpoints
-	r.HandleFunc("/api/ui/files", GetFilesHandler).Methods("GET")
-	r.HandleFunc("/api/ui/files/{filename}", GetFileHandler).Methods("GET")
-
-	if env.IsDev() {
-		r.HandleFunc("/api/ui/random", RandomHandler).Methods("POST")
-	}
+	r.HandleFunc("/api/ui/files", ui.GetFilesHandler).Methods("GET")
+	r.HandleFunc("/api/ui/files/{filename}", ui.GetFileHandler).Methods("GET")
 
 	// AI endpoints
 	r.HandleFunc("/api/ai/charactersdetails", ai.CharacterDetailsHandler).Methods("GET")
@@ -33,7 +33,7 @@ func Setup() *mux.Router {
 	r.HandleFunc("/api/ai/conversations/{filename}", ai.ConversationAmountHandler).Methods("GET")
 
 	// React app endpoint
-	r.PathPrefix("/").Methods("GET").HandlerFunc(ReactHandler)
+	r.PathPrefix("/").Methods("GET").HandlerFunc(ui.ReactHandler)
 
 	return r
 }
