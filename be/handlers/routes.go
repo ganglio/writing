@@ -1,9 +1,14 @@
 package handlers
 
 import (
+	"writing/config"
 	"writing/handlers/ai"
 
 	"github.com/gorilla/mux"
+)
+
+var (
+	env = config.GetEnv()
 )
 
 func Setup() *mux.Router {
@@ -14,6 +19,10 @@ func Setup() *mux.Router {
 	// UI endpoints
 	r.HandleFunc("/api/ui/files", GetFilesHandler).Methods("GET")
 	r.HandleFunc("/api/ui/files/{filename}", GetFileHandler).Methods("GET")
+
+	if env.IsDev() {
+		r.HandleFunc("/api/ui/random", RandomHandler).Methods("POST")
+	}
 
 	// AI endpoints
 	r.HandleFunc("/api/ai/charactersdetails", ai.CharacterDetailsHandler).Methods("GET")
