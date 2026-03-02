@@ -2,6 +2,7 @@ package ui
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/fs"
 	"net/http"
 	"os"
@@ -23,7 +24,7 @@ func GetFilesHandler(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 	if err != nil {
-		http.Error(w, "Failed to read files", http.StatusInternalServerError)
+		http.Error(w, fmt.Sprintf("Failed to read files: %v", err), http.StatusInternalServerError)
 		return
 	}
 

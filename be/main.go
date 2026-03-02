@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"writing/ai"
 	"writing/config"
 	"writing/handlers"
 
@@ -22,10 +21,8 @@ func main() {
 		log.Info("Running in production mode")
 	}
 
-	log.WithField("schema", ai.CharacterDetailsSchema).Debug("AI character details schema loaded")
-
-	log.WithField("env", env).Info("Environment configuration loaded")
-	log.WithField("port", env.Port).Info("Server starting")
+	log.WithField("env", env).Debug("Environment configuration loaded")
+	log.WithField("port", env.Port).Debug("Server starting")
 	srv := &http.Server{
 		Handler: handlers.Setup(),
 		Addr:    fmt.Sprintf(":%d", env.Port),

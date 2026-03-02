@@ -1,12 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect, useContext } from "react";
 
-const Files = ({ currentFile, setCurrentFile }) => {
-  const [files, setFiles] = useState([]);
+import GlobalContext from "../context/global";
+
+const Files = () => {
+  const { state, dispatch } = useContext(GlobalContext.Context);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/files")
+    fetch("http://localhost:3000/api/ui/files")
       .then((res) => res.json())
-      .then((data) => setFiles(data))
+      .then((data) => dispatch({ type: GlobalContext.Actions.SET_FILE_LIST, payload: data }))
       .catch((err) => console.error("Error fetching files:", err));
   }, []);
 
@@ -14,9 +16,13 @@ const Files = ({ currentFile, setCurrentFile }) => {
     <section className="overflow-scroll">
       <span className="fw-bold">File Explorer</span>
       <ul className="list-group list-group-flush">
-        {files.map((file, index) => (
-          <li key={index} className={`list-group-item ${file === currentFile ? 'active' : ''}`}>
-            <button className="nav-link" onClick={() => setCurrentFile({...currentFile, filename: file})}>{file}</button>
+        {state.files.map((file, index) => (
+          <li key={index} className={`list-group-item ${file === state.currentOpenFile ? 'active' : ''}`}>
+            <button
+              className="nav-link"
+              onClick={() => dispatch({ type: GlobalContext.Actions.SET_CURRENT_OPEN_FILE, payload: file })}>
+              {file}
+            </button>
           </li>
         ))}
       </ul>

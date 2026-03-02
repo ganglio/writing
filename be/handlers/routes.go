@@ -4,6 +4,7 @@ import (
 	"writing/config"
 	"writing/handlers/ai"
 	"writing/handlers/ui"
+	"writing/handlers/utils"
 
 	"github.com/gorilla/mux"
 )
@@ -15,9 +16,9 @@ var (
 func Setup() *mux.Router {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/api/health", HealthCheckHandler).Methods("GET")
+	r.HandleFunc("/api/health", utils.HealthCheckHandler).Methods("GET")
 	if env.IsDev() {
-		r.HandleFunc("/api/random", RandomHandler).Methods("POST")
+		r.HandleFunc("/api/random", utils.RandomHandler).Methods("GET")
 	}
 
 	// UI endpoints

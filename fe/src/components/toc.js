@@ -1,3 +1,7 @@
+import { useContext } from "react";
+
+import GlobalContext from '../context/global';
+
 function buildTree(items) {
     const root = [];
     const stack = [{ level: 0, children: root }];
@@ -33,8 +37,10 @@ const renderTree = (nodes) => {
   );
 }
 
-const ToC = ({ toc }) => {
-  const tree = buildTree(toc);
+const ToC = () => {
+  const { state } = useContext(GlobalContext.Context);
+  
+  const tree = buildTree(state.toc || []);
 
   return (
     <section className="fs-6 overflow-scroll">

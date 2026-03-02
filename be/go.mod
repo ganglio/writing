@@ -4,6 +4,7 @@ go 1.25.3
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
+	github.com/drhodes/golorem v0.0.0-20220328165741-da82e5b29246
 	github.com/gorilla/mux v1.8.1
 	github.com/invopop/jsonschema v0.13.0
 	github.com/openai/openai-go/v3 v3.23.0
