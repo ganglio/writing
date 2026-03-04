@@ -1,6 +1,10 @@
+import { useState } from 'react';
+
 import HeaderBar from './components/headerbar';
 import MainContent from './components/maincontent';
 import Footer from './components/footer';
+
+import Panel from './ui/panel';
 
 import GlobalContext from './context/global';
 
@@ -8,18 +12,30 @@ import './App.css';
 
 function App() {
 
+    // return (
+    //     <GlobalContext.Provider>
+    //         <div className="app d-flex flex-column min-vh-100">
+    //             <div className="row">
+    //                 <HeaderBar />
+    //             </div>
+    //             <div className="row flex-grow-1">
+    //                 <MainContent />
+    //             </div>
+    //             <div className="row">
+    //                 <Footer />
+    //             </div>
+    //         </div>
+    //     </GlobalContext.Provider>
+    // );
+
+    const [random, setRandom] = useState("");
+
     return (
         <GlobalContext.Provider>
-            <div className="app d-flex flex-column min-vh-100">
-                <div className="row">
-                    <HeaderBar />
-                </div>
-                <div className="row flex-grow-1">
-                    <MainContent />
-                </div>
-                <div className="row">
-                    <Footer />
-                </div>
+            <div className="container">
+                <Panel title="Welcome" onReload={() => fetch("/api/random").then(res => res.text()).then(setRandom)}>
+                    <p>This is a sample application. {random}</p>
+                </Panel>
             </div>
         </GlobalContext.Provider>
     );
