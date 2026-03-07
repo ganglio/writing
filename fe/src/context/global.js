@@ -5,6 +5,7 @@ const Actions = {
 	SET_CURRENT_OPEN_FILE_CONTENT: "SET_CURRENT_OPEN_FILE_CONTENT",
 	SET_FILE_LIST: "SET_FILE_LIST",
 	SET_TOC: "SET_TOC",
+	TOGGLE_MODAL: "TOGGLE_MODAL",
 }
 
 const InitalState = {
@@ -12,6 +13,7 @@ const InitalState = {
 	currentOpenFileContent: null,
 	files: [],
 	toc: [],
+	modal: null,
 }
 
 const Reducer = (state, action) => {
@@ -36,6 +38,11 @@ const Reducer = (state, action) => {
 	  	return {
 			...state,
 			toc: action.payload,
+	  	};
+	case Actions.TOGGLE_MODAL:
+	  	return {
+			...state,
+			modal: state.modal ? null : action.payload,
 	  	};
 	default:
 	  	return state;

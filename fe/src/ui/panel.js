@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const Panel = ({ children, title, onReload, className }) => {
     const [reloading, setReloading] = useState(false);
-
+    
     useEffect(() => {
         if (reloading && onReload) {
             onReload();
