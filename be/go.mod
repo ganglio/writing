@@ -3,6 +3,7 @@ module writing
 go 1.25.3
 
 require (
+	dario.cat/mergo v1.0.2
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/drhodes/golorem v0.0.0-20220328165741-da82e5b29246
 	github.com/gorilla/mux v1.8.1

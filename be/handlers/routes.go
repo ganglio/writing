@@ -24,6 +24,7 @@ func Setup() *mux.Router {
 	// UI endpoints
 	r.HandleFunc("/api/ui/files", ui.GetFilesHandler).Methods("GET")
 	r.HandleFunc("/api/ui/files/{filename}", ui.GetFileHandler).Methods("GET")
+	r.HandleFunc("/api/ui/tabs", ui.Tabs).Methods("GET")
 
 	// AI endpoints
 	r.HandleFunc("/api/ai/charactersdetails", ai.CharacterDetailsHandler).Methods("GET")

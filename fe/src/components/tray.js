@@ -10,14 +10,17 @@ const Tray = () => {
 
 
     useEffect(() => {
-        // Simulate fetching tabs from an API
-        setTimeout(() => {
-            setTabs([
-                { id: "files", icon: "fa-regular fa-folder" },
-                { id: "settings", icon: "fa-solid fa-gear" },
-                { id: "info", icon: "fa-solid fa-circle-info" }
-            ]);
-        }, 1000);
+        const fetchData = async () => fetch('/api/ui/tabs')
+            .then(response => response.json())
+            .then(data => setTabs(data))
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error('Error fetching tabs:', error);
+                }
+            });
+        if (tabs.length === 0) {
+            fetchData();
+        }
     }, []);
 
     return (
